@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "HTML Basics",
+    "subject": "coding",
+    "trainer": "Ahmad Rahimi",
+    "feeAFN": 2000,
+    "weeklyHours": 8,
+    "seats": 12,
+    "slotIds": ["MON-09", "WED-09"],
+    "description": "Learn how to build web pages with HTML. You will create headings, lists, links, images, and forms."
+  },
+  {
+    "id": 2,
+    "title": "Excel Essentials",
+    "subject": "office skills",
+    "trainer": "Sara Karimi",
+    "feeAFN": 1500,
+    "weeklyHours": 6,
+    "seats": 10,
+    "slotIds": ["TUE-10", "THU-10"],
+    "description": "Learn spreadsheets, formulas, tables, and charts for daily office work."
+  },
+  {
+    "id": 3,
+    "title": "Photoshop Intro",
+    "subject": "design",
+    "trainer": "Omid Noori",
+    "feeAFN": 1800,
+    "weeklyHours": 5,
+    "seats": 8,
+    "slotIds": ["MON-09", "FRI-09"],
+    "description": "Start with layers, selections, and colors to edit photos and make simple posters."
+  },
+  {
+    "id": 4,
+    "title": "JavaScript Basics",
+    "subject": "coding",
+    "trainer": "Ahmad Rahimi",
+    "feeAFN": 2500,
+    "weeklyHours": 10,
+    "seats": 15,
+    "slotIds": ["MON-14", "WED-14"],
+    "description": "Learn variables, functions, arrays, and events to make web pages interactive."
+  },
+  {
+    "id": 5,
+    "title": "Microsoft Word",
+    "subject": "office skills",
+    "trainer": "Sara Karimi",
+    "feeAFN": 1000,
+    "weeklyHours": 4,
+    "seats": 0,
+    "slotIds": ["TUE-14", "THU-14"],
+    "description": "Write and format professional documents, letters, and reports."
+  },
+  {
+    "id": 6,
+    "title": "Logo Design",
+    "subject": "design",
+    "trainer": "Omid Noori",
+    "feeAFN": 1700,
+    "weeklyHours": 6,
+    "seats": 6,
+    "slotIds": ["WED-10", "FRI-10"],
+    "description": "Learn the basics of shapes, fonts, and colors to design a simple brand logo."
+  }
+]
