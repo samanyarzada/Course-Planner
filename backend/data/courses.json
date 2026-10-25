@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "title": "Css basic",
+    "subject": "coding",
+    "trainer": "Framarz said mohammadi",
+    "feeAFN": 2999,
+    "weeklyHours": 4,
+    "seats": 18,
+    "slotIds": [
+      "MON-09",
+      "WED-09",
+      "SAT-08"
+    ],
+    "description": "CSS"
+  }
+]

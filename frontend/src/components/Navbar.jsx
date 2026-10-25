@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-function Navbar({ planCount }) {
+function Navbar({ planCount, token, onLogout }) {
   // Controls the mobile menu (open or closed)
   const [open, setOpen] = useState(false);
 
-  const links = [
-    { to: "/", label: "Home" },
-    { to: "/courses", label: "Courses" },
-    { to: "/study-plan", label: "Study Plan" },
-    { to: "/manage", label: "Manage Courses" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
-  ];
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/courses", label: "Courses" },
+  { to: "/study-plan", label: "Study Plan" },
+  // Admin links only appear after login
+  ...(token
+    ? [
+        { to: "/manage", label: "Manage Courses" },
+        { to: "/messages", label: "Messages" },
+      ]
+    : []),
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
+];
 
   // NavLink gives us isActive, so we can style the current page
   const linkClass = ({ isActive }) =>
@@ -67,6 +73,23 @@ function Navbar({ planCount }) {
               </NavLink>
             </li>
           ))}
+          <li>
+  {token ? (
+    <button
+      onClick={() => {
+        onLogout();
+        setOpen(false);
+      }}
+      className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+    >
+      Logout
+    </button>
+  ) : (
+    <NavLink to="/login" onClick={() => setOpen(false)} className={linkClass}>
+      Login
+    </NavLink>
+  )}
+</li>
         </ul>
       </nav>
     </header>

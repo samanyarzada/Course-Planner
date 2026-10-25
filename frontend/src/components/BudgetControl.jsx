@@ -1,4 +1,5 @@
 import { useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Quick buttons for the spending limit
 const PRESETS = [2000, 3000, 5000];
@@ -33,23 +34,36 @@ function BudgetControl({ budget, setBudget, totalFee }) {
     setEnquiry({ ...enquiry, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple validation
     const newErrors = {};
     if (!enquiry.name.trim()) newErrors.name = "Name is required.";
     if (!enquiry.email.includes("@")) newErrors.email = "Enter a valid email.";
-    if (!enquiry.message.trim()) newErrors.message = "Enquiry text is required.";
+    if (!enquiry.message.trim())
+      newErrors.message = "Enquiry text is required.";
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
-    // Sample only: we do not send the data anywhere
-    setSentName(enquiry.name);
-    setEnquiry({ name: "", email: "", message: "" });
-  };
+    try {
+      const response = await fetch(`${API_URL}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...enquiry, topic: "Learner enquiry" }),
+      });
 
+      if (!response.ok) {
+        setErrors({ message: "Could not send the enquiry. Try again." });
+        return;
+      }
+
+      setSentName(enquiry.name);
+      setEnquiry({ name: "", email: "", message: "" });
+    } catch {
+      setErrors({ message: "Cannot reach the server." });
+    }
+  };
   return (
     <div className="space-y-6">
       {/* Budget card */}
@@ -57,7 +71,9 @@ function BudgetControl({ budget, setBudget, totalFee }) {
         <h2 className="text-lg font-bold text-gray-900">💰 Budget</h2>
         <p className="text-sm text-gray-500">Set your spending limit.</p>
 
-        <label className="mt-4 block text-sm font-medium text-gray-700">Spending limit (AFN)</label>
+        <label className="mt-4 block text-sm font-medium text-gray-700">
+          Spending limit (AFN)
+        </label>
         <input
           type="number"
           min="0"
@@ -108,12 +124,17 @@ function BudgetControl({ budget, setBudget, totalFee }) {
 
             {/* Progress bar */}
             <div className="h-3 overflow-hidden rounded-full bg-gray-100">
-              <div className={`h-full rounded-full ${barColor}`} style={{ width: `${percent}%` }} />
+              <div
+                className={`h-full rounded-full ${barColor}`}
+                style={{ width: `${percent}%` }}
+              />
             </div>
 
             <div
               className={`mt-4 rounded-xl px-4 py-3 text-center text-sm font-bold ${
-                balance < 0 ? "bg-red-50 text-red-700" : "bg-green-50 text-green-700"
+                balance < 0
+                  ? "bg-red-50 text-red-700"
+                  : "bg-green-50 text-green-700"
               }`}
             >
               {balance < 0
@@ -130,8 +151,12 @@ function BudgetControl({ budget, setBudget, totalFee }) {
         className="space-y-3 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
       >
         <div>
-          <h2 className="text-lg font-bold text-gray-900">✉️ Learner enquiry</h2>
-          <p className="text-sm text-gray-500">Have a question? Send us a message.</p>
+          <h2 className="text-lg font-bold text-gray-900">
+            ✉️ Learner enquiry
+          </h2>
+          <p className="text-sm text-gray-500">
+            Have a question? Send us a message.
+          </p>
         </div>
 
         <div>
@@ -143,7 +168,9 @@ function BudgetControl({ budget, setBudget, totalFee }) {
             onChange={handleChange}
             className={inputClass}
           />
-          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+          {errors.name && (
+            <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+          )}
         </div>
 
         <div>
@@ -155,7 +182,9 @@ function BudgetControl({ budget, setBudget, totalFee }) {
             onChange={handleChange}
             className={inputClass}
           />
-          {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+          )}
         </div>
 
         <div>
@@ -167,7 +196,9 @@ function BudgetControl({ budget, setBudget, totalFee }) {
             onChange={handleChange}
             className={inputClass}
           />
-          {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
+          {errors.message && (
+            <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+          )}
         </div>
 
         <button

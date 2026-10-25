@@ -1,4 +1,5 @@
 import { useState } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", topic: "General question", message: "" });
@@ -20,22 +21,35 @@ function Contact() {
     setSent(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const newErrors = {};
-    if (!form.name.trim()) newErrors.name = "Name is required.";
-    if (!form.email.includes("@")) newErrors.email = "Enter a valid email.";
-    if (!form.message.trim()) newErrors.message = "Message is required.";
+  const newErrors = {};
+  if (!form.name.trim()) newErrors.name = "Name is required.";
+  if (!form.email.includes("@")) newErrors.email = "Enter a valid email.";
+  if (!form.message.trim()) newErrors.message = "Message is required.";
 
-    setErrors(newErrors);
-    if (Object.keys(newErrors).length > 0) return;
+  setErrors(newErrors);
+  if (Object.keys(newErrors).length > 0) return;
 
-    // Sample only: the message is not sent anywhere
+  try {
+    const response = await fetch(`${API_URL}/messages`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    if (!response.ok) {
+      setErrors({ message: "Could not send the message. Try again." });
+      return;
+    }
+
     setSent(true);
     setForm({ name: "", email: "", topic: "General question", message: "" });
-  };
-
+  } catch {
+    setErrors({ message: "Cannot reach the server." });
+  }
+};
   return (
     <div className="animate-fade-up">
       <div className="mb-8">
