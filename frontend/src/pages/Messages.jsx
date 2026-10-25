@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API = import.meta.env.VITE_API_URL;
+const API = `${(import.meta.env.VITE_API_URL || "").replace(/\/+$/, "")}/api`;
 function Messages({ token, onUnauthorized }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);

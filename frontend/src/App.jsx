@@ -13,7 +13,7 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-const API = import.meta.env.VITE_API_URL;
+const API = `${(import.meta.env.VITE_API_URL || "").replace(/\/+$/, "")}/api`;
 function App() {
   // All courses (loaded from the API)
   const [courses, setCourses] = useState([]);

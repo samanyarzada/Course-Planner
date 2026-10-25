@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API = import.meta.env.VITE_API_URL;
+const API = `${(import.meta.env.VITE_API_URL || "").replace(/\/+$/, "")}/api`;
 function Login({ onLogin }) {
   const navigate = useNavigate();
   const [form, setForm] = useState({ username: "", password: "" });
@@ -46,16 +46,27 @@ function Login({ onLogin }) {
       >
         <div>
           <h1 className="text-2xl font-extrabold text-gray-900">Admin login</h1>
-          <p className="text-sm text-gray-500">Only the admin can manage courses and messages.</p>
+          <p className="text-sm text-gray-500">
+            Only the admin can manage courses and messages.
+          </p>
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">Username</label>
-          <input name="username" value={form.username} onChange={handleChange} className={inputClass} />
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Username
+          </label>
+          <input
+            name="username"
+            value={form.username}
+            onChange={handleChange}
+            className={inputClass}
+          />
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium text-gray-700">Password</label>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Password
+          </label>
           <input
             type="password"
             name="password"
@@ -65,7 +76,11 @@ function Login({ onLogin }) {
           />
         </div>
 
-        {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
+        {error && (
+          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+            {error}
+          </p>
+        )}
 
         <button
           type="submit"

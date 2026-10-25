@@ -1,6 +1,5 @@
 import { useState } from "react";
-const API_URL = import.meta.env.VITE_API_URL;
-
+const API_URL = `${(import.meta.env.VITE_API_URL || "").replace(/\/+$/, "")}/api`;
 // Quick buttons for the spending limit
 const PRESETS = [2000, 3000, 5000];
 
