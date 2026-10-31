@@ -1,17 +1,101 @@
 [
   {
     "id": 1,
-    "title": "Css basic",
+    "title": "Web Development with HTML, CSS & JavaScript",
     "subject": "coding",
-    "trainer": "Framarz said mohammadi",
-    "feeAFN": 2999,
-    "weeklyHours": 4,
+    "trainer": "Ahmad Rahimi",
+    "feeAFN": 3500,
+    "weeklyHours": 6,
+    "seats": 20,
+    "slotIds": ["MON-09", "WED-09", "FRI-09"],
+    "description": "Learn to build responsive websites using HTML, CSS, and JavaScript. Students will complete practical projects and develop front-end development skills."
+  },
+  {
+    "id": 2,
+    "title": "Python Programming for Beginners",
+    "subject": "coding",
+    "trainer": "Mohammad Azizi",
+    "feeAFN": 4000,
+    "weeklyHours": 8,
+    "seats": 15,
+    "slotIds": ["TUE-10", "THU-10", "SAT-10"],
+    "description": "Learn Python programming from scratch, including variables, conditions, loops, functions, and basic problem-solving."
+  },
+  {
+    "id": 3,
+    "title": "React.js Front-End Development",
+    "subject": "coding",
+    "trainer": "Farid Hamidi",
+    "feeAFN": 5000,
+    "weeklyHours": 6,
     "seats": 18,
-    "slotIds": [
-      "MON-09",
-      "WED-09",
-      "SAT-08"
-    ],
-    "description": "CSS"
+    "slotIds": ["MON-14", "WED-14", "FRI-14"],
+    "description": "Learn React.js, components, props, state, hooks, and API integration by building modern interactive web applications."
+  },
+  {
+    "id": 4,
+    "title": "Graphic Design with Adobe Photoshop",
+    "subject": "design",
+    "trainer": "Sara Ahmadi",
+    "feeAFN": 3000,
+    "weeklyHours": 6,
+    "seats": 20,
+    "slotIds": ["MON-11", "WED-11", "FRI-11"],
+    "description": "Learn graphic design fundamentals, photo editing, image manipulation, and creative poster design using Adobe Photoshop."
+  },
+  {
+    "id": 5,
+    "title": "UI/UX Design Fundamentals",
+    "subject": "design",
+    "trainer": "Maryam Noori",
+    "feeAFN": 4500,
+    "weeklyHours": 8,
+    "seats": 15,
+    "slotIds": ["TUE-13", "THU-13", "SAT-13"],
+    "description": "Learn user interface and user experience design, wireframing, prototyping, and user-centered design principles using Figma."
+  },
+  {
+    "id": 6,
+    "title": "Video Editing with Adobe Premiere Pro",
+    "subject": "design",
+    "trainer": "Bilal Karimi",
+    "feeAFN": 4000,
+    "weeklyHours": 6,
+    "seats": 12,
+    "slotIds": ["MON-15", "WED-15", "FRI-15"],
+    "description": "Learn professional video editing, transitions, color correction, audio editing, and video production using Adobe Premiere Pro."
+  },
+  {
+    "id": 7,
+    "title": "Microsoft Word Professional",
+    "subject": "office",
+    "trainer": "Nasir Ahmad",
+    "feeAFN": 2000,
+    "weeklyHours": 4,
+    "seats": 25,
+    "slotIds": ["MON-08", "WED-08", "FRI-08"],
+    "description": "Learn document formatting, tables, page layouts, headers, footers, and professional document creation using Microsoft Word."
+  },
+  {
+    "id": 8,
+    "title": "Microsoft Excel from Beginner to Advanced",
+    "subject": "office",
+    "trainer": "Zainab Hakimi",
+    "feeAFN": 3500,
+    "weeklyHours": 6,
+    "seats": 20,
+    "slotIds": ["TUE-09", "THU-09", "SAT-09"],
+    "description": "Learn Excel formulas, functions, data organization, charts, tables, and data analysis techniques for professional office work."
+  },
+  {
+    "id": 9,
+    "title": "Microsoft PowerPoint Presentation Skills",
+    "subject": "office",
+    "trainer": "Omar Safi",
+    "feeAFN": 2500,
+    "weeklyHours": 4,
+    "seats": 20,
+    "slotIds": ["MON-13", "WED-13", "FRI-13"],
+    "description": "Learn how to create professional presentations using slides, animations, transitions, images, charts, and presentation techniques."
   }
 ]
