@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CourseForm from "../components/CourseForm";
+import Icon from "../components/Icons";
 import { getSubjectStyle } from "../utils/subjectStyles";
 
 function ManageCourses({ courses, onSave, onDelete }) {
@@ -44,10 +45,10 @@ function ManageCourses({ courses, onSave, onDelete }) {
   const fullCourses = courses.filter((course) => course.seats <= 0).length;
 
   const stats = [
-    { icon: "📚", label: "Total courses", value: courses.length },
-    { icon: "🪑", label: "Total seats", value: totalSeats },
-    { icon: "💵", label: "Average fee", value: `${averageFee} AFN` },
-    { icon: "🚫", label: "Full courses", value: fullCourses },
+    { icon: "book", label: "Total courses", value: courses.length },
+    { icon: "users", label: "Total seats", value: totalSeats },
+    { icon: "wallet", label: "Average fee", value: `${averageFee} AFN` },
+    { icon: "ban", label: "Full courses", value: fullCourses },
   ];
 
   // Search by title or trainer
@@ -58,18 +59,24 @@ function ManageCourses({ courses, onSave, onDelete }) {
 
   return (
     <div className="animate-fade-up">
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900">Manage courses</h1>
-        <p className="mt-2 text-gray-600">Create, edit, or delete the sample courses.</p>
+      <div className="mb-10">
+        <p className="eyebrow">Administration</p>
+        <h1 className="mt-2 text-4xl font-semibold text-ink md:text-5xl">Manage courses</h1>
+        <span className="gold-rule mt-4" />
+        <p className="mt-4 max-w-2xl text-muted">Create, edit, or delete the sample courses.</p>
       </div>
 
       {/* Stats */}
-      <div className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="stagger mb-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-            <p className="text-2xl">{stat.icon}</p>
-            <p className="mt-2 text-sm text-gray-500">{stat.label}</p>
-            <p className="text-2xl font-extrabold text-gray-900">{stat.value}</p>
+          <div key={stat.label} className="card-lux card-lux-hover group p-5">
+            <span className="icon-badge h-11 w-11">
+              <Icon name={stat.icon} className="h-5 w-5" />
+            </span>
+            <p className="mt-4 text-xs font-medium uppercase tracking-[0.15em] text-muted">
+              {stat.label}
+            </p>
+            <p className="mt-1 font-display text-2xl font-semibold text-ink">{stat.value}</p>
           </div>
         ))}
       </div>
@@ -78,28 +85,34 @@ function ManageCourses({ courses, onSave, onDelete }) {
       <CourseForm key={formKey} initialData={editing} onSave={handleSave} onCancel={handleCancel} />
 
       {/* Table */}
-      <div className="mt-10">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <h2 className="text-xl font-bold text-gray-900">All courses</h2>
-          <input
-            type="text"
-            placeholder="🔍 Search title or trainer"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100 sm:w-72"
-          />
+      <div className="mt-14">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-2xl font-semibold text-ink">All courses</h2>
+          <div className="relative w-full sm:w-72">
+            <Icon
+              name="search"
+              className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted"
+            />
+            <input
+              type="text"
+              placeholder="Search title or trainer"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="input-lux pl-10"
+            />
+          </div>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
+        <div className="card-lux overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+            <thead className="bg-cream text-[0.7rem] uppercase tracking-[0.15em] text-gold-dark">
               <tr>
-                <th className="px-4 py-3">Course</th>
-                <th className="px-4 py-3">Fee</th>
-                <th className="px-4 py-3">Hours</th>
-                <th className="px-4 py-3">Seats</th>
-                <th className="px-4 py-3">Slots</th>
-                <th className="px-4 py-3 text-right">Actions</th>
+                <th className="px-5 py-4">Course</th>
+                <th className="px-5 py-4">Fee</th>
+                <th className="px-5 py-4">Hours</th>
+                <th className="px-5 py-4">Seats</th>
+                <th className="px-5 py-4">Slots</th>
+                <th className="px-5 py-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -107,56 +120,63 @@ function ManageCourses({ courses, onSave, onDelete }) {
                 const style = getSubjectStyle(course.subject);
 
                 // Seats badge color
-                let seatBadge = "bg-green-50 text-green-700";
-                if (course.seats <= 5) seatBadge = "bg-amber-50 text-amber-700";
+                let seatBadge = "bg-emerald-deep/10 text-emerald-deep";
+                if (course.seats <= 5) seatBadge = "bg-gold/15 text-gold-dark";
                 if (course.seats <= 0) seatBadge = "bg-red-50 text-red-700";
 
                 return (
-                  <tr key={course.id} className="border-t border-gray-100 hover:bg-gray-50">
-                    <td className="px-4 py-3">
+                  <tr
+                    key={course.id}
+                    className="border-t border-line transition-colors duration-300 hover:bg-cream"
+                  >
+                    <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
                         <span
-                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-linear-to-br ${style.header}`}
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br ${style.header} text-white shadow-sm`}
                         >
-                          {style.icon}
+                          <Icon name={style.iconName} className="h-5 w-5" />
                         </span>
                         <div>
-                          <p className="font-semibold text-gray-900">{course.title}</p>
-                          <p className="text-xs text-gray-500">{course.trainer}</p>
+                          <p className="font-semibold text-ink">{course.title}</p>
+                          <p className="text-xs text-muted">{course.trainer}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 font-medium">{course.feeAFN} AFN</td>
-                    <td className="px-4 py-3">{course.weeklyHours} h</td>
-                    <td className="px-4 py-3">
-                      <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${seatBadge}`}>
+                    <td className="whitespace-nowrap px-5 py-4 font-medium text-ink">
+                      {course.feeAFN} AFN
+                    </td>
+                    <td className="px-5 py-4 text-ink-soft">{course.weeklyHours} h</td>
+                    <td className="px-5 py-4">
+                      <span className={`rounded-full px-3 py-1 text-xs font-semibold ${seatBadge}`}>
                         {course.seats <= 0 ? "Full" : course.seats}
                       </span>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-5 py-4">
                       <div className="flex flex-wrap gap-1">
                         {course.slotIds.map((slot) => (
                           <span
                             key={slot}
-                            className="rounded-md bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700"
+                            className="rounded-md border border-line bg-white px-2 py-0.5 text-xs font-medium tracking-wide text-ink-soft"
                           >
                             {slot}
                           </span>
                         ))}
                       </div>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-5 py-4">
                       <div className="flex justify-end gap-2">
                         <button
                           onClick={() => handleEdit(course)}
-                          className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-100"
+                          className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-white px-3 py-1.5 text-xs font-semibold text-ink transition-all duration-300 hover:border-gold hover:text-gold-dark active:scale-95"
                         >
+                          <Icon name="edit" className="h-3.5 w-3.5" />
                           Edit
                         </button>
                         <button
                           onClick={() => handleDelete(course)}
-                          className="rounded-lg bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-100"
+                          className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 transition-all duration-300 hover:bg-red-100 active:scale-95"
                         >
+                          <Icon name="trash" className="h-3.5 w-3.5" />
                           Delete
                         </button>
                       </div>
@@ -168,9 +188,11 @@ function ManageCourses({ courses, onSave, onDelete }) {
           </table>
 
           {visibleCourses.length === 0 && (
-            <div className="p-10 text-center">
-              <p className="text-3xl">📭</p>
-              <p className="mt-2 text-sm text-gray-500">
+            <div className="p-12 text-center">
+              <span className="icon-badge mx-auto h-14 w-14">
+                <Icon name="inbox" className="h-6 w-6" />
+              </span>
+              <p className="mt-3 text-sm text-muted">
                 {courses.length === 0
                   ? "No courses yet. Create the first one above."
                   : "No courses match your search."}

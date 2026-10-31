@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CourseCard from "../components/CourseCard";
 import CourseFilters from "../components/CourseFilters";
+import Icon from "../components/Icons";
 
 function Courses({ courses, loading, error, planIds, onAdd, onRemove }) {
   // Filter states
@@ -17,12 +18,12 @@ function Courses({ courses, loading, error, planIds, onAdd, onRemove }) {
     setOnlyAvailable(false);
   };
 
-  // Loading state: gray placeholder cards
+  // Loading state: soft placeholder cards
   if (loading) {
     return (
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {[1, 2, 3].map((item) => (
-          <div key={item} className="h-80 animate-pulse rounded-2xl bg-gray-200" />
+          <div key={item} className="h-96 animate-pulse rounded-3xl bg-sand" />
         ))}
       </div>
     );
@@ -30,8 +31,11 @@ function Courses({ courses, loading, error, planIds, onAdd, onRemove }) {
 
   if (error) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center text-red-700">
-        {error}
+      <div className="animate-fade-up mx-auto max-w-lg rounded-3xl border border-red-200 bg-red-50 p-10 text-center text-red-700">
+        <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-red-600 shadow-sm">
+          <Icon name="alert" className="h-6 w-6" />
+        </span>
+        <p className="mt-4 text-sm font-medium">{error}</p>
       </div>
     );
   }
@@ -57,9 +61,11 @@ function Courses({ courses, loading, error, planIds, onAdd, onRemove }) {
 
   return (
     <div className="animate-fade-up">
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-900">Explore courses</h1>
-        <p className="mt-2 text-gray-600">
+      <div className="mb-10">
+        <p className="eyebrow">Our catalogue</p>
+        <h1 className="mt-2 text-4xl font-semibold text-ink md:text-5xl">Explore courses</h1>
+        <span className="gold-rule mt-4" />
+        <p className="mt-4 max-w-2xl text-muted">
           Find the right course, check the schedule, and add it to your study plan.
         </p>
       </div>
@@ -79,19 +85,18 @@ function Courses({ courses, loading, error, planIds, onAdd, onRemove }) {
       />
 
       {visibleCourses.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-12 text-center">
-          <p className="text-4xl">🔎</p>
-          <h3 className="mt-3 text-lg font-semibold text-gray-900">No courses found</h3>
-          <p className="mt-1 text-sm text-gray-500">Try a different search or change the filters.</p>
-          <button
-            onClick={resetFilters}
-            className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-          >
+        <div className="animate-fade-up rounded-3xl border border-dashed border-gold-light bg-white p-14 text-center">
+          <span className="icon-badge mx-auto h-16 w-16">
+            <Icon name="search" className="h-7 w-7" />
+          </span>
+          <h3 className="mt-5 font-display text-xl font-semibold text-ink">No courses found</h3>
+          <p className="mt-1 text-sm text-muted">Try a different search or change the filters.</p>
+          <button onClick={resetFilters} className="btn-gold mt-6">
             Reset filters
           </button>
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visibleCourses.map((course) => (
             <CourseCard
               key={course.id}

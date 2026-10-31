@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Icon from "./Icons";
 
 const emptyForm = {
   title: "",
@@ -14,20 +15,18 @@ const emptyForm = {
 // Valid slot example: MON-09
 const SLOT_PATTERN = /^(MON|TUE|WED|THU|FRI|SAT)-\d{2}$/;
 
-// Shared style for all inputs
-const inputClass =
-  "w-full rounded-lg border px-3 py-2.5 text-sm focus:outline-none focus:ring-2";
-
 // Small helper component: label + input + hint + error message
 function Field({ label, hint, error, children }) {
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-gray-700">{label}</label>
+      <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.15em] text-muted">
+        {label}
+      </label>
       {children}
       {error ? (
         <p className="mt-1 text-sm text-red-600">{error}</p>
       ) : (
-        hint && <p className="mt-1 text-xs text-gray-400">{hint}</p>
+        hint && <p className="mt-1 text-xs text-muted/80">{hint}</p>
       )}
     </div>
   );
@@ -44,13 +43,9 @@ function CourseForm({ initialData, onSave, onCancel }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Red border if the field has an error, normal border if not
+  // Red border if the field has an error, normal luxury input if not
   const fieldClass = (name) =>
-    `${inputClass} ${
-      errors[name]
-        ? "border-red-400 focus:border-red-500 focus:ring-red-100"
-        : "border-gray-300 focus:border-blue-500 focus:ring-blue-100"
-    }`;
+    `input-lux ${errors[name] ? "border-red-400! focus:ring-red-100!" : ""}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,27 +102,32 @@ function CourseForm({ initialData, onSave, onCancel }) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm"
-    >
+    <form onSubmit={handleSubmit} className="card-lux overflow-hidden">
       {/* Form header */}
       <div
-        className={`px-6 py-4 text-white ${
+        className={`relative overflow-hidden px-7 py-5 text-white ${
           initialData
-            ? "bg-linear-to-r from-amber-500 to-orange-500"
-            : "bg-linear-to-r from-blue-600 to-indigo-600"
+            ? "bg-linear-to-r from-gold-dark to-gold"
+            : "bg-linear-to-r from-ink to-ink-soft"
         }`}
       >
-        <h2 className="text-lg font-bold">
-          {initialData ? `✏️ Edit course: ${initialData.title}` : "➕ Add new course"}
-        </h2>
-        <p className="text-sm text-white/80">
-          {initialData ? "Change the fields and save." : "Fill in the details of the new course."}
-        </p>
+        <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-white/10" />
+        <div className="relative flex items-center gap-4">
+          <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/25 bg-white/15">
+            <Icon name={initialData ? "edit" : "plus"} className="h-5 w-5" />
+          </span>
+          <div>
+            <h2 className="font-display text-xl font-semibold">
+              {initialData ? `Edit course: ${initialData.title}` : "Add new course"}
+            </h2>
+            <p className="text-sm text-white/75">
+              {initialData ? "Change the fields and save." : "Fill in the details of the new course."}
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className="space-y-5 p-6">
+      <div className="space-y-5 p-7">
         <div className="grid gap-5 md:grid-cols-2">
           <Field label="Title" error={errors.title}>
             <input
@@ -144,11 +144,11 @@ function CourseForm({ initialData, onSave, onCancel }) {
               name="subject"
               value={form.subject}
               onChange={handleChange}
-              className={fieldClass("subject")}
+              className={`${fieldClass("subject")} cursor-pointer`}
             >
-              <option value="coding">💻 Coding</option>
-              <option value="office skills">📊 Office skills</option>
-              <option value="design">🎨 Design</option>
+              <option value="coding">Coding</option>
+              <option value="office skills">Office skills</option>
+              <option value="design">Design</option>
             </select>
           </Field>
 
@@ -217,23 +217,17 @@ function CourseForm({ initialData, onSave, onCancel }) {
             value={form.description}
             onChange={handleChange}
             placeholder="What will learners study in this course?"
-            className={fieldClass("description")}
+            className={`${fieldClass("description")} resize-none`}
           />
         </Field>
 
-        <div className="flex flex-wrap gap-3">
-          <button
-            type="submit"
-            className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700"
-          >
+        <div className="flex flex-wrap gap-3 pt-1">
+          <button type="submit" className="btn-gold px-8 py-3">
+            <Icon name={initialData ? "check" : "plus"} className="h-4 w-4" />
             {initialData ? "Save changes" : "Create course"}
           </button>
           {initialData && (
-            <button
-              type="button"
-              onClick={onCancel}
-              className="rounded-lg border border-gray-200 px-6 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50"
-            >
+            <button type="button" onClick={onCancel} className="btn-outline px-8 py-3">
               Cancel
             </button>
           )}

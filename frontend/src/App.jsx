@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Messages from "./pages/Messages";
 import Footer from "./components/Footer";
+import Icon from "./components/Icons";
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import CourseDetails from "./pages/CourseDetails";
@@ -120,7 +121,6 @@ function App() {
     }
   };
 
-  // Create a new course or update an existing one
   // Create a new course or update an existing one (saved on the server)
   const saveCourse = async (course) => {
     const isEdit = Boolean(course.id);
@@ -203,38 +203,69 @@ function App() {
   ).length;
 
   return (
-    <div className="flex min-h-screen flex-col bg-gray-50 text-gray-800">
+    <div className="flex min-h-screen flex-col bg-cream text-ink">
       <Navbar planCount={validPlanCount} token={token} onLogout={logout} />
 
       {/* Toast message (bottom of the screen) */}
       {message && (
-        <div className="fixed inset-x-4 bottom-6 z-50 animate-fade-up sm:left-auto sm:right-6 sm:w-96">
+        <div className="fixed inset-x-4 bottom-6 z-50 animate-toast-in sm:left-auto sm:right-6 sm:w-96">
           <div
-            className={`flex items-start gap-3 rounded-xl border p-4 text-sm shadow-lg ${
-              message.type === "error"
-                ? "border-red-200 bg-white text-red-700"
-                : "border-green-200 bg-white text-green-700"
+            className={`relative overflow-hidden rounded-2xl border bg-white p-4 shadow-[0_24px_60px_-20px_rgba(20,24,31,0.45)] ${
+              message.type === "error" ? "border-red-200" : "border-gold-light"
             }`}
           >
-            <span
-              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white ${
-                message.type === "error" ? "bg-red-500" : "bg-green-500"
+            <div className="flex items-start gap-3">
+              <span
+                className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white ${
+                  message.type === "error"
+                    ? "bg-linear-to-br from-red-500 to-red-700"
+                    : "bg-linear-to-br from-emerald-soft to-emerald-deep"
+                }`}
+              >
+                <Icon
+                  name={message.type === "error" ? "alert" : "check"}
+                  className="h-4 w-4"
+                  strokeWidth={2.2}
+                />
+              </span>
+
+              <div className="flex-1">
+                <p
+                  className={`text-xs font-semibold uppercase tracking-widest ${
+                    message.type === "error" ? "text-red-600" : "text-gold-dark"
+                  }`}
+                >
+                  {message.type === "error" ? "Attention" : "Success"}
+                </p>
+                <p className="mt-0.5 text-sm text-ink-soft">{message.text}</p>
+              </div>
+
+              <button
+                onClick={() => setMessage(null)}
+                aria-label="Close message"
+                className="rounded-lg p-1 text-muted transition hover:bg-sand hover:text-ink"
+              >
+                <Icon name="x" className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Timer bar: shrinks over 4 seconds (same time as the auto hide) */}
+            <div
+              key={message.text}
+              className={`absolute inset-x-0 bottom-0 h-0.5 origin-left animate-grow ${
+                message.type === "error" ? "bg-red-400" : "bg-gold"
               }`}
-            >
-              {message.type === "error" ? "!" : "✓"}
-            </span>
-            <p className="flex-1 text-gray-700">{message.text}</p>
-            <button
-              onClick={() => setMessage(null)}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              ✕
-            </button>
+              style={{
+                animationDuration: "4s",
+                animationTimingFunction: "linear",
+                animationDirection: "reverse",
+              }}
+            />
           </div>
         </div>
       )}
 
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12">
         <Routes>
           <Route path="/login" element={<Login onLogin={login} />} />
           <Route
@@ -311,7 +342,18 @@ function App() {
           <Route
             path="*"
             element={
-              <p className="text-center text-gray-600">Page not found.</p>
+              <div className="animate-fade-up mx-auto max-w-md py-10 text-center">
+                <p className="font-display text-8xl font-semibold text-gold-gradient">404</p>
+                <span className="gold-rule mx-auto mt-4" />
+                <h1 className="mt-6 text-2xl font-semibold text-ink">Page not found</h1>
+                <p className="mt-2 text-sm text-muted">
+                  The page you are looking for does not exist or was moved.
+                </p>
+                <Link to="/" className="btn-gold mt-8">
+                  <Icon name="arrowLeft" className="h-4 w-4" />
+                  Back to home
+                </Link>
+              </div>
             }
           />
         </Routes>

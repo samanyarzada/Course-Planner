@@ -1,22 +1,30 @@
-// Colors and icons for each subject (used by cards and filters)
+// Colors and icons for each subject (used by cards, filters and timetable).
+// "icon" (emoji) is kept for now so old components keep working.
+// "iconName" is the new SVG icon name used by the upgraded components.
 export const subjectStyles = {
   coding: {
     label: "Coding",
     icon: "💻",
-    header: "from-blue-500 to-indigo-600",
-    badge: "bg-blue-50 text-blue-700",
+    iconName: "code",
+    header: "from-navy to-navy-soft",
+    badge: "bg-navy/10 text-navy",
+    text: "text-navy",
   },
   "office skills": {
     label: "Office skills",
     icon: "📊",
-    header: "from-emerald-500 to-teal-600",
-    badge: "bg-emerald-50 text-emerald-700",
+    iconName: "chart",
+    header: "from-emerald-deep to-emerald-soft",
+    badge: "bg-emerald-deep/10 text-emerald-deep",
+    text: "text-emerald-deep",
   },
   design: {
     label: "Design",
     icon: "🎨",
-    header: "from-fuchsia-500 to-purple-600",
-    badge: "bg-purple-50 text-purple-700",
+    iconName: "palette",
+    header: "from-wine to-wine-soft",
+    badge: "bg-wine/10 text-wine",
+    text: "text-wine",
   },
 };
 
@@ -24,8 +32,10 @@ export const subjectStyles = {
 const defaultStyle = {
   label: "Course",
   icon: "📘",
-  header: "from-gray-500 to-gray-700",
-  badge: "bg-gray-100 text-gray-700",
+  iconName: "book",
+  header: "from-ink-soft to-muted",
+  badge: "bg-ink/10 text-ink",
+  text: "text-ink",
 };
 
 export function getSubjectStyle(subject) {
