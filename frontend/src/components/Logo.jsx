@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-// SkillHub logo: a gold "S" monogram inside a dark emblem + wordmark.
+// SkillHub logo: a light "S" monogram inside a green emblem + wordmark.
 // variant="dark"  -> for light backgrounds (navbar)
 // variant="light" -> for dark backgrounds (footer, hero)
 function Logo({ size = 40, showText = true, variant = "dark" }) {
@@ -8,6 +8,7 @@ function Logo({ size = 40, showText = true, variant = "dark" }) {
   const uid = useId().replace(/:/g, "");
 
   const nameColor = variant === "light" ? "text-white" : "text-ink";
+  const hubColor = variant === "light" ? "text-gold-light" : "text-gold-dark";
   const subColor = variant === "light" ? "text-gold-light" : "text-gold-dark";
 
   return (
@@ -22,14 +23,13 @@ function Logo({ size = 40, showText = true, variant = "dark" }) {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id={`bg-${uid}`} x1="0" y1="0" x2="40" y2="40">
-            <stop offset="0" stopColor="#232a35" />
-            <stop offset="1" stopColor="#0c0f14" />
+          <linearGradient id={`bg-${uid}`} x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0" style={{ stopColor: "var(--color-brand)" }} />
+            <stop offset="1" style={{ stopColor: "var(--color-gold-dark)" }} />
           </linearGradient>
-          <linearGradient id={`gold-${uid}`} x1="8" y1="6" x2="32" y2="34">
-            <stop offset="0" stopColor="#ecdcb4" />
-            <stop offset="0.55" stopColor="#c9a76a" />
-            <stop offset="1" stopColor="#8f6f3a" />
+          <linearGradient id={`s-${uid}`} x1="10" y1="8" x2="30" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0" style={{ stopColor: "#ffffff" }} />
+            <stop offset="1" style={{ stopColor: "var(--color-gold-light)" }} />
           </linearGradient>
         </defs>
 
@@ -41,36 +41,29 @@ function Logo({ size = 40, showText = true, variant = "dark" }) {
           width="38"
           height="38"
           rx="10"
-          stroke={`url(#gold-${uid})`}
-          strokeOpacity="0.65"
+          stroke="#ffffff"
+          strokeOpacity="0.25"
           strokeWidth="1"
         />
 
         {/* Monogram S */}
         <path
           d="M25.5 13.2C24.3 11.7 22.4 10.9 20.2 10.9C16.9 10.9 14.7 12.6 14.7 15.1C14.7 20.4 25.8 18.1 25.8 24.6C25.8 27.4 23.4 29.2 20 29.2C17.5 29.2 15.4 28.2 14 26.4"
-          stroke={`url(#gold-${uid})`}
+          stroke={`url(#s-${uid})`}
           strokeWidth="2.4"
           strokeLinecap="round"
         />
 
         {/* Small diamond detail */}
-        <path
-          d="M30.5 8.5L32 10.2L30.5 11.9L29 10.2Z"
-          fill={`url(#gold-${uid})`}
-        />
+        <path d="M30.5 8.5L32 10.2L30.5 11.9L29 10.2Z" fill="#ffffff" fillOpacity="0.9" />
       </svg>
 
       {showText && (
         <span className="flex flex-col leading-none">
-          <span
-            className={`font-display text-xl font-semibold tracking-tight ${nameColor}`}
-          >
-            Skill<span className="italic text-gold">Hub</span>
+          <span className={`font-display text-xl font-semibold tracking-tight ${nameColor}`}>
+            Skill<span className={`italic ${hubColor}`}>Hub</span>
           </span>
-          <span
-            className={`mt-1 text-[0.6rem] font-semibold uppercase tracking-[0.28em] ${subColor}`}
-          >
+          <span className={`mt-1 text-[0.6rem] font-semibold uppercase tracking-[0.28em] ${subColor}`}>
             Training Centre
           </span>
         </span>

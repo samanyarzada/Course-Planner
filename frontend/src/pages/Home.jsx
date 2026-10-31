@@ -42,7 +42,7 @@ function Home({ courses, loading, planIds, onAdd, onRemove }) {
       {/* Hero */}
       <section className="relative overflow-hidden rounded-[2rem] bg-ink px-6 py-16 text-white shadow-2xl shadow-ink/30 md:px-14 md:py-20">
         {/* Background glows and circles */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(184,149,90,0.28),transparent_55%),radial-gradient(ellipse_at_bottom_left,rgba(59,74,114,0.45),transparent_55%)]" />
+        <div className="pointer-events-none absolute inset-0 hero-glow" />
         <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 animate-float rounded-full border border-gold/30" />
         <div className="pointer-events-none absolute -right-4 top-10 h-40 w-40 animate-float rounded-full border border-gold/20 [animation-delay:1.5s]" />
         <div className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-gold/5 blur-2xl" />
@@ -212,7 +212,7 @@ function Home({ courses, loading, planIds, onAdd, onRemove }) {
 
       {/* Call to action */}
       <section className="relative overflow-hidden rounded-[2rem] bg-ink px-6 py-16 text-center text-white">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(184,149,90,0.22),transparent_65%)]" />
+        <div className="pointer-events-none absolute inset-0 hero-glow-center" />
         <div className="relative">
           <span className="gold-rule mx-auto" />
           <h2 className="mt-6 text-3xl font-semibold md:text-4xl">Ready to build your study plan?</h2>

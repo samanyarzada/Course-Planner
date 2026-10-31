@@ -34,7 +34,7 @@ function About() {
     <div className="animate-fade-up space-y-20">
       {/* Header */}
       <section className="relative overflow-hidden rounded-[2rem] bg-ink px-6 py-20 text-center text-white shadow-2xl shadow-ink/30">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(184,149,90,0.28),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0 hero-glow-top" />
         <div className="pointer-events-none absolute -left-10 -top-10 h-52 w-52 animate-float rounded-full border border-gold/30" />
         <div className="pointer-events-none absolute -bottom-12 -right-8 h-44 w-44 animate-float rounded-full border border-gold/20 [animation-delay:1.5s]" />
 
